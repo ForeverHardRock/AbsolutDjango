@@ -46,14 +46,14 @@
        ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/1fd36a65-b62b-449e-be92-5ba41e867507)
 
        Так же весь дизайн адаптирован для мобилок
-       ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/9041b1a4-4b0e-4bcd-945b-3c86694a906d)
+      ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/9041b1a4-4b0e-4bcd-945b-3c86694a906d)
 
        По прохождению всех этапов будет показана вся цепочка выборов для подтверждения
 
-       ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/6a3d2a10-61fc-4b57-aa26-e322f7a9f945)
+      ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/6a3d2a10-61fc-4b57-aa26-e322f7a9f945)
 
        Только после нажатия подтверждения создается запись в базе данных, пользователь получает подтверждение
-       ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/2d8badd7-c703-439d-9e62-ac79d2529e1c)
+      ![image](https://github.com/ForeverHardRock/AbsolutDjango/assets/6781216/2d8badd7-c703-439d-9e62-ac79d2529e1c)
 
 
 
