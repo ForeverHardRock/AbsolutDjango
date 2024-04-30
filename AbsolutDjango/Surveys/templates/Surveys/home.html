@@ -1,0 +1,44 @@
+{% extends 'Surveys/layout.html' %}
+{% load static %}
+
+{% block title %}ERP | Absolut - система автоматизации{% endblock %}
+
+
+{% block content %}
+<div class="header">
+  <button id="return-btn" class="return-btn" style="display: none" onclick="back()">
+    <img src="{% static 'Surveys/image/arrow-left' %}" class="icon" alt="icon">
+  </button>
+</div>
+<div class="body">
+  <div class="page-content">
+    <img src="{% static 'Surveys/image/logo.svg' %}" alt="logo">
+    {% if message %}
+      <h2>{{ message }}</h2>
+    {% endif %}
+    {% if surveys %}
+      <div class="survey-buttons">
+        <h2>Доступные опросы:</h2>
+        {% for survey in surveys %}
+          <a href="{% url 'survey' survey.slug %}">{{ survey.text }}</a>
+        {% endfor %}
+      </div>
+    {% else %}
+      {% include 'Surveys/blocks/identity_form.html' %}
+      {% include 'Surveys/blocks/password_form.html' %}
+      {% include 'Surveys/blocks/code_form.html' %}
+      {% include 'Surveys/blocks/code_reset_form.html' %}
+      {% include 'Surveys/blocks/reset_form.html' %}
+    {% endif %}
+  </div>
+</div>
+<div class="footer">
+  <div class="content">
+    <div id="footer-info">
+      <div class="support-label">Техническая поддержка</div>
+      <div class="support-phone">8 (800) 777-89-67 (доб. 2)</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

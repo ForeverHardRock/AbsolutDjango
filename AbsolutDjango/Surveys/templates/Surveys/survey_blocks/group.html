@@ -1,0 +1,30 @@
+{% if group %}
+  <input type="hidden" name="group_title" value="{{ group_title }}">
+  <h2>{{ group_title }}</h2>
+  <div class="answers">
+    {% if not question %}
+      <input type="hidden" name="answer" value="{{ pk }}">
+    {% endif %}
+    {% for group_question in group %}
+      <h4>{{ group_question.text }}</h4>
+      {% if group_question.answer_type == 'input' %}
+        <input type="hidden" name="group_input[]" value="{{ group_question.text }}">
+        <input class="input" type="text" name="group_input[]">
+      {% elif group_question.answer_type == 'select' %}
+        {% for inline in group_question.answer_inlines %}
+          <label class="select-box">
+            <input class="select" type="checkbox" name="group_select[]" value="{{ group_question.text }}|{{ inline }}">
+            {{ inline }}
+          </label>
+        {% endfor %}
+      {% elif group_question.answer_type == 'choice' %}
+        <select name="group_choice[]">
+          {% for inline in group_question.answer_inlines %}
+            <option value="{{ group_question.text }}|{{ inline }}">{{ inline }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+    {% endfor %}
+    <br>
+  </div>
+{% endif %}

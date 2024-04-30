@@ -1,0 +1,249 @@
+@mixin survey($stock-height, $stock-height-el) {
+  .survey-header {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $stock-height;
+    margin-bottom: 5px;
+    background-color: $page-background-color;
+    width: 100%;
+    .gray-line{
+      width: 100%;
+      position: absolute;
+      height: 5px;
+      border-radius: 3px;
+      background-color: #e3e3e3;
+      bottom: -5px;
+    }
+    .progress-line{
+      position: absolute;
+      height: 5px;
+      border-radius: 3px;
+      background-color: $main-color;
+      left: 0;
+      bottom: -5px;
+      transition: 0.4s ease;
+    }
+  }
+  .survey-body {
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    margin-top: $stock-height;
+    margin-bottom: $stock-height;
+    .page-content {
+      margin: 24px auto 0;
+
+      @include xs(){
+        width: 300px;
+      }
+      height: 100%;
+      width: 50%;
+
+      @include lt-sm(){
+        width: 80%
+      }
+      h2 {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+        color: #1a1b1f;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+      }
+      form {
+        .answers{
+          h4 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 20px;
+            color: #1a1b1f;
+            margin-bottom: 4px;
+            padding-bottom: 4px;
+          }
+          .input, select {
+            box-sizing: border-box;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 18px;
+            width: 100%;
+            height: 30px;
+            font-weight: 400;
+            line-height: 20px;
+            border: solid 3px $main-color;
+            &:focus {
+              outline: none;
+            }
+          }
+          .select-box {
+            display: block;
+            padding: 5px;
+            background: none;
+            font-size: 20px;
+            font-weight: 400;
+            color: #5b5e66;
+            font-family: 'IBM Plex Sans', sans-serif;
+            transition: 0.4s ease;
+            &:hover {
+              cursor: pointer;
+              background-color: $main-color;
+              color: $page-background-color;
+            }
+          }
+        }
+        button {
+          text-align: center;
+          display: block;
+          text-decoration: none;
+          width: 100%;
+          border: solid 3px $main-color;
+          border-radius: 20px;
+          padding: 5px;
+          background: none;
+          font-size: 20px;
+          font-weight: 400;
+          color: #5b5e66;
+          font-family: 'IBM Plex Sans', sans-serif;
+          transition: 0.4s ease;
+          margin-bottom:  20px;
+        }
+        .submit-button, .back-button{
+          &:hover {
+            cursor: pointer;
+            background-color: $main-color;
+            color: $page-background-color;
+          }
+        }
+        .survey-buttons{
+          position: fixed;
+          z-index: 2;
+          bottom: 0;
+          height: $stock-height;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 50%;
+
+          @include lt-sm(){
+            width: 80%
+          }
+          button {
+            font-size: $stock-height-el;
+            width: 40%;
+            margin: 0;
+
+            a {
+              text-decoration: none;
+              &:visited {
+
+                color: inherit;
+              }
+            }
+          }
+          .disabled-button{
+            border: solid 3px #e3e3e3;
+            cursor: none;
+          }
+        }
+        h4 {
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: 18px;
+          font-weight: 500;
+          color: #1a1b1f;
+        }
+        p {
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          color: #1a1b1f;
+          display: flex;
+          .mark {
+            color: $main-color;
+            margin-right: 6px;
+          }
+        }
+        .total-form {
+          > p {
+            padding-left: 20px;
+          }
+          &-block{
+            padding-left: 20px;
+
+            > .block-answer{
+              padding-left: 20px;
+            }
+
+            &-group {
+              p {
+                padDing-left: 20px;
+              }
+            }
+          }
+        }
+        .success-block {
+          h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: #1a1b1f;
+          }
+          a {
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            border: solid 3px $main-color;
+            border-radius: 20px;
+            padding: 5px;
+            background: none;
+            font-size: 20px;
+            font-weight: 400;
+            color: #5b5e66;
+            font-family: 'IBM Plex Sans', sans-serif;
+            transition: 0.4s ease;
+            text-decoration: none;
+            &:visited {
+              color: inherit;
+            }
+            &:hover {
+              cursor: pointer;
+              background-color: $main-color;
+              color: $page-background-color;
+            }
+          }
+        }
+      }
+    }
+  }
+  .survey-bottom {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    margin-top: 5px;
+    width: 100vw;
+    height: $stock-height;
+    background-color: $page-background-color;
+    .gray-line{
+      width: 100%;
+      position: absolute;
+      height: 5px;
+      border-radius: 3px;
+      background-color: #e3e3e3;
+      top: -5px;
+    }
+  }
+}
+@include survey($stock-height, $stock-height-el);
+@mixin main($height, $el-height) {
+  @include survey($height, $el-height)
+}
+
+@include global
+
+
+

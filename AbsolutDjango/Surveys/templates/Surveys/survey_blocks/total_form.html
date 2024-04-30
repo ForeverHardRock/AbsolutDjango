@@ -1,0 +1,44 @@
+<div class="total-form">
+  {% for stage in total_form %}
+    <h4 class="stage-header">{{ stage.que }}</h4>
+    {% if 'value_list' in stage %}
+      <div class="total-form-block">
+        {% for group in stage.value_list %}
+          {% if group.que %}
+            <h4 class="group-header">{{ group.que }}</h4>
+          {% endif %}
+          {% if 'value_list' in group %}
+            <div class="total-form-block-group">
+              {% for ques in group.value_list %}
+                <p class="group-answers">
+                  <span class="mark">✔</span>
+                  <span>{{ ques }}</span>
+                </p>
+              {% endfor %}
+            </div>
+          {% elif 'value' in group  %}
+            <p class="block-answer">
+              <span class="mark">✔</span>
+              <span>{{ group.value }}</span>
+            </p>
+          {% else %}
+            <p class="block-answers">
+              <span class="mark">✔</span>
+              <span>{{ group }}</span>
+            </p>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% elif 'value' in stage %}
+      <p class="answer">
+        <span class="mark">✔</span>
+        <span>{{ stage.value }}</span>
+      </p>
+    {% else %}
+      <p class="answers">
+        <span class="mark">✔</span>
+        <span>{{ stage }}</span>
+      </p>
+    {% endif %}
+  {% endfor %}
+</div>

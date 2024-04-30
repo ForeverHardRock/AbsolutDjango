@@ -1,0 +1,20 @@
+<div id="code-reset-form" style="display: none">
+  <h2 class="title" id="code-reset-title">Введите код из письма</h2>
+  <div class="description" id="code-reset-description">Мы отправили код на вашу почту</div>
+
+  <div class="actions">
+    <form class="input-control" id="reset">
+      {% csrf_token %}
+      <label for="code-reset" id="code-reset-label">Код из письма</label>
+      <div class="input-content" id="code-reset-input-content">
+        <input type="text" name="code" id="code-reset" placeholder="Введите код">
+      </div>
+      <span id="code-reset-error" class="error" style="display: none">Неверный код</span>
+
+      <button type="submit" id="clogin-reset-button" disabled="">Продолжить</button>
+      <button class="code-button" onclick="sendResetCode()" id="send-reset-button" disabled="">Отправить
+        код еще раз
+      </button>
+    </form>
+  </div>
+</div>

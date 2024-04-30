@@ -1,0 +1,21 @@
+@mixin layout($stock-height, $stock-height-el) {
+  body {
+    margin: 0;
+    .auth-base {
+      position: relative;
+      max-width: 1640px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      font-family: "IBM Plex Sans", sans-serif;
+    }
+  }
+}
+
+
+@include layout($stock-height, $stock-height-el);
+@mixin main($height, $el-height) {
+  @include layout($height, $el-height)
+}
+
+@include global

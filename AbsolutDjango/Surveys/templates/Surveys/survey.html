@@ -1,0 +1,59 @@
+{% extends 'Surveys/layout.html' %}
+{% load static %}
+
+{% block title %}Опрос: {{ title }}{% endblock %}
+
+
+{% block content %}
+<div class="survey-header">
+  <img src="{% static 'Surveys/image/logo.svg' %}" alt="logo">
+  <div class="gray-line"></div>
+  <div class="progress-line" style="width: {{ width }}%">
+  </div>
+</div>
+<div class="survey-body">
+  <div class="page-content">
+    <form method="post" action="{% url 'survey' slug %}">
+      {% csrf_token %}
+      <input type="hidden" name="form_data" value="{{ form_data }}">
+
+      {% if total_form %}
+        {% include 'Surveys/survey_blocks/total_form.html' %}
+      {% elif success %}
+        <div class="success-block">
+          <h2>{{ success }}</h2>
+          <a href="{% url 'survey_list' %}">На главную</a>
+        </div>
+      {% else %}
+        {% include 'Surveys/survey_blocks/question.html' %}
+
+        {% include 'Surveys/survey_blocks/group.html' %}
+      {% endif %}
+
+      {% if not success %}
+        <div class="survey-buttons">
+          {% if parent_pk %}
+            <button class="back-button" name="back" value="{{ parent_pk }}" type="submit">Назад</button>
+          {% else %}
+            <button class="back-button">
+              <a href="{% url 'survey_list' %}">Назад</a>
+            </button>
+          {% endif %}
+          {% if total_form %}
+            <input type="hidden" name="total_form" value="{{ total_form }}">
+            <button class="submit-button" type="submit">Сохранить</button>
+          {% elif group or question.answer_type != 'choice' %}
+            <button class="submit-button" type="submit">Отправить</button>
+          {% else %}
+            <button class="disabled-button" type="submit" disabled>Отправить</button>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </form>
+  </div>
+</div>
+<div class="survey-bottom">
+  <div class="gray-line"></div>
+</div>
+{% endblock %}

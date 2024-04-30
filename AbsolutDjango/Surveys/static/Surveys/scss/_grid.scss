@@ -1,0 +1,191 @@
+$breakpoints: (
+  "xs": 320,
+  "mb": 414,
+  "sm": 768,
+  "md": 1024,
+  "lg": 1280,
+  "xl": 1680,
+  "xxl": 1920,
+);
+
+$columns: (
+  "xs": 1,
+  "mb": 1,
+  "sm": 6,
+  "md": 6,
+  "lg": 8,
+  "xl": 8,
+  "xxl": 8
+);
+
+$offsets: (
+  "xs": 8,
+  "mb": 10,
+  "sm": 30,
+  "md": 30,
+  "lg": 30,
+  "xl": 40,
+  "xxl": 40
+);
+
+$gutters: (
+  "xs": 0,
+  "mb": 0,
+  "sm": 16,
+  "md": 16,
+  "lg": 20,
+  "xl": 20,
+  "xxl": 20
+);
+
+$queries: (
+  "xs": "(max-width: 414px)",
+  //"mb": "(min-width: 414px) and (max-width: 767px)",
+  //"sm": "(min-width: 768px) and (max-width: 1023px)",
+  //"md": "(min-width: 1024px) and (max-width: 1279px)",
+  //"lg": "(min-width: 1280px) and (max-width: 1679px)",
+  //"xl": "(min-width: 1680px) and (max-width: 1919px)",
+  //"xxl": "(min-width: 1920px)",
+  "lt-mb": "(max-width: 550px)",
+  "lt-sm": "(max-width: 767px)",
+  "lt-md": "(max-width: 1023px)",
+  "lt-lg": "(max-width: 1279px)",
+  //"lt-xl": "(max-width: 1679px)",
+  //"gt-sm": "(min-width: 768px)",
+  //"gt-md": "(min-width: 1024px)",
+  //"gt-lg": "(min-width: 1280px)",
+  //"gt-xl": "(min-width: 1680px)",
+  //"gt-xxl": "(min-width: 1920px)"
+);
+
+@mixin xs {
+  @media #{map-get($queries, "xs")} {
+    @content;
+  }
+}
+
+@mixin mb {
+  @media #{map-get($queries, "mb")} {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media #{map-get($queries, "sm")} {
+    @content;
+  }
+}
+
+@mixin md {
+  @media #{map-get($queries, "md")} {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media #{map-get($queries, "lg")} {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media #{map-get($queries, "xl")} {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media #{map-get($queries, "xxl")} {
+    @content;
+  }
+}
+
+@mixin lt-mb {
+  @media #{map-get($queries, "lt-mb")} {
+    @content;
+  }
+}
+
+@mixin lt-md {
+  @media #{map-get($queries, "lt-md")} {
+    @content;
+  }
+}
+
+@mixin lt-sm {
+  @media #{map-get($queries, "lt-sm")} {
+    @content;
+  }
+}
+
+@mixin lt-lg {
+  @media #{map-get($queries, "lt-lg")} {
+    @content;
+  }
+}
+
+@mixin lt-xl {
+  @media #{map-get($queries, "lt-xl")} {
+    @content;
+  }
+}
+
+@mixin gt-sm {
+  @media #{map-get($queries, "gt-sm")} {
+    @content;
+  }
+}
+
+@mixin gt-md {
+  @media #{map-get($queries, "gt-md")} {
+    @content;
+  }
+}
+
+@mixin gt-lg {
+  @media #{map-get($queries, "gt-lg")} {
+    @content;
+  }
+}
+
+@mixin gt-xl {
+  @media #{map-get($queries, "gt-xl")} {
+    @content;
+  }
+}
+
+@mixin gt-xxl {
+  @media #{map-get($queries, "gt-xxl")} {
+    @content;
+  }
+}
+
+@function grid-column($breakpoint, $size) {
+  $colsCount: map-get($columns, $breakpoint);
+  $gutter: map-get($gutters, $breakpoint) * 1px;
+  $gutters: ($colsCount - 1) * $gutter;
+  $innerGutters: if((ceil($size) - 1) > 0, (ceil($size) - 1), 0) * $gutter;
+  @return calc((((100% - #{$gutters}) / #{$colsCount}) * #{$size}) + #{$innerGutters});
+}
+
+
+@mixin grid-size($xs: 1, $sm: 1, $md: 8, $lg: 8, $xl: 8, $xxl: 8) {
+  @include xs {
+    width: grid-column('xs', $xs);
+  }
+  @include sm {
+    width: grid-column('sm', $sm);
+  }
+  @include md {
+    width: grid-column('md', $md);
+  }
+  @include lg {
+    width: grid-column('lg', $lg);
+  }
+  @include xl {
+    width: grid-column('xl', $xl);
+  }
+  @include xxl {
+    width: grid-column('xxl', $xxl);
+  }
+}

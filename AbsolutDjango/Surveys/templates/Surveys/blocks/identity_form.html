@@ -1,0 +1,23 @@
+<div id="identity-form">
+  <h2 class="title">Добро пожаловать!</h2>
+  <div class="description">Введите адрес электронной почты для входа или регистрации</div>
+
+  <div class="actions">
+    <form class="input-control" id="singin" method="post" action="{% url 'home' %}">
+      {% csrf_token %}
+      <label for="identity">Почта</label>
+      <div class="input-content" id="input-content">
+        <input type="text" name="identity" id="identity" placeholder="Введите данные">
+      </div>
+      <span id="emailError" class="error" style="display: none">Неверный адрес электронной почты.</span>
+
+      <button type="submit" id="identity-button" disabled="">Продолжить</button>
+    </form>
+  </div>
+
+  <div class="user-agreement">
+    Нажимая кнопку «Продолжить», вы подтверждаете свое согласие с условиями
+    <a class="link" href="https://erp.nomia.app/assets/docs/User_Agreement.pdf" target="_blank">Пользовательского
+      соглашения</a>
+  </div>
+</div>

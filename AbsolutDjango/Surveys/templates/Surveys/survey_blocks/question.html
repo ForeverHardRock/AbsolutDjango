@@ -1,0 +1,38 @@
+{% if question %}
+  <input type="hidden" name="question" value="{{ question }}">
+  <h2>{{ question }}</h2>
+  <div class="answers">
+
+    {% if question.answer_type == 'choice' %}
+
+      {% if group %}
+        <select name="answer">
+          {% for answer in answers %}
+            <option value="{{ answer.pk }}">{{ answer.text }}</option>
+          {% endfor %}
+        </select>
+      {% else %}
+
+        {% for answer in answers %}
+          <input type="hidden" name="choice">
+          <button class="submit-button" name="answer" value="{{ answer.pk }}" type="submit">{{ answer.text }}</button>
+        {% endfor %}
+
+      {% endif %}
+
+    {% elif question.answer_type == 'select' %}
+      <input type="hidden" name="answer" value="{{ pk }}">
+      {% for answer in answers %}
+        <label class="select-box">
+          <input type="checkbox" name="select[]" value="{{ answer }}">
+          {{ answer }}
+        </label>
+      {% endfor %}
+      <br>
+
+    {% elif question.answer_type == 'input' %}
+      <input type="hidden" name="answer" value="{{ pk }}">
+      <input class="input" type="text" name="input"><br><br>
+    {% endif %}
+  </div>
+{% endif %}
