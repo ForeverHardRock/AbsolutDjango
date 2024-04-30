@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Answer, QuestionInline, UserData
 
 
+# домашняя страница
 def home_view(request):
     if request.method == 'POST':
         identity = request.POST.get('identity')
@@ -10,6 +11,7 @@ def home_view(request):
     return render(request, 'Surveys/home.html')
 
 
+# страница с опросами
 def survey_list_view(request):
     surveys = Answer.objects.exclude(slug=None).values('slug', 'text')
     context = {
@@ -18,13 +20,16 @@ def survey_list_view(request):
     return render(request, 'Surveys/home.html', context=context)
 
 
+# страница с опросом
 def survey_view(request, survey_slug: str):
     survey = Answer.objects.get(slug=survey_slug)  # Объект опроса
     slug = survey.slug  # URL опроса
     success = None
+
     if request.method == 'POST':
         # print(request.POST.dict())
 
+        # если отправляем заполненную форму
         if 'total_form' in request.POST and 'back' not in request.POST:
             total_form = request.POST.get('total_form')
             total_data = eval(total_form)
@@ -43,16 +48,19 @@ def survey_view(request, survey_slug: str):
             post_data = request.POST.get('form_data')
             form_data = eval(post_data)
 
+            # если нажали назад
             if 'back' in request.POST:
                 post_pk = request.POST.get('back')  # Получение ID предыдущего шага
                 survey = Answer.objects.get(pk=post_pk)  # Получение предыдущего шага
                 form_data.pop(survey.level+1)
 
+            # если ответили на вопрос
             elif 'answer' in request.POST:
                 post_pk = request.POST.get('answer')  # Получение ID вложенного ответа из опроса
                 survey = Answer.objects.get(pk=post_pk)  # Получение следующего шага
                 post_level = survey.level
 
+                # если на этапе был вопрос, разбираем данные
                 if 'question' in request.POST:
                     post_question = request.POST.get('question')
                     post_answer = None
@@ -66,6 +74,7 @@ def survey_view(request, survey_slug: str):
                         post_answer = request.POST.get('input')
                     form_data[post_level] = {post_question: post_answer}
 
+                # если на этапе была группа вопросов, разбираем данные
                 if 'group_title' in request.POST:
                     post_group_title = request.POST.get('group_title')
                     q_and_a = {}
@@ -110,6 +119,8 @@ def survey_view(request, survey_slug: str):
     group = None
     group_title = None
     total_form = None
+
+    # если переход на вопрос, то готовим данные для отображения
     if answers:
         question = answers[0].question  # Текущий вопрос
 
@@ -117,6 +128,7 @@ def survey_view(request, survey_slug: str):
         group = answers[0].group  # Текущая группа
         answer_level = answers[0].level  # Уровень вложенности
 
+        # если на этапе есть вопрос, готовим его данные
         if question:
             answer_type = question.answer_type  # Тип ответа на текущий вопрос
 
@@ -124,6 +136,8 @@ def survey_view(request, survey_slug: str):
                 answers = answers[0].text.split(', ')  # Подготовка ответов для типа select
             if answer_type != 'choice':
                 pass
+
+        # если на этапе есть группа, готовим ее данные
         if group:
             group_title = group.group_title  # Название группы
             group = group.questions.all()  # Вопросы группы
@@ -138,11 +152,15 @@ def survey_view(request, survey_slug: str):
 
         max_level = max(survey.get_descendants(include_self=False).values_list('level', flat=True))  # Максимальная вовзможная вложенность на текущей ветке
         width = int(100 / (max_level + 1) * answer_level)  # Шкала прогресса
+
+    # если на все вопросы ответили
     else:
         width = 100
 
         stages = form_data.values()
         total_form = []
+
+        # подготовка данных для отображения в превью
         for stage in stages:
             for que, value in zip(stage.keys(), stage.values()):
                 if isinstance(value, dict):
@@ -157,7 +175,6 @@ def survey_view(request, survey_slug: str):
                     total_form.append({'que': que, 'value_list': value})
                 else:
                     total_form.append({'que': que, 'value': value})
-
 
     context = {
         'title': survey.text,

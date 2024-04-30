@@ -15,6 +15,7 @@ question_variables = (
 )
 
 
+# модель для группы вопросов
 class AnswerGroup(models.Model):
     group_title = models.CharField(max_length=100, verbose_name='Название блока')
     questions = models.ManyToManyField('Question', verbose_name='Вопросы',
@@ -28,6 +29,7 @@ class AnswerGroup(models.Model):
         return self.group_title
 
 
+# модель для инлайновых ответов к вопросам
 class QuestionInline(models.Model):
     question_object = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='inline_question')
     answer = models.CharField(max_length=255, verbose_name='Ответ', null=True, blank=True)
@@ -40,6 +42,7 @@ class QuestionInline(models.Model):
         return self.question_object.text
 
 
+# модель вопросов
 class Question(models.Model):
     text = models.CharField(max_length=200, verbose_name='Вопрос')
     answer_type = models.CharField(max_length=10, choices=answer_types, default='choice', verbose_name='Тип ответа')
@@ -55,6 +58,7 @@ class Question(models.Model):
         return self.text
 
 
+# модель опроса
 class Answer(MPTTModel):
     text = models.CharField(max_length=200, verbose_name='Ответ', null=True, blank=True)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, verbose_name='Вопрос',
@@ -125,6 +129,7 @@ class Answer(MPTTModel):
         super().save(*args, **kwargs)
 
 
+# модель для хранения пройденных опросов
 class UserData(models.Model):
     user = models.CharField(max_length=100, verbose_name='Пользователь', default='test')
     data = models.JSONField(verbose_name='Данные опроса')
